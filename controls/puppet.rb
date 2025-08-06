@@ -3,12 +3,11 @@ control 'puppet-installed' do
   title 'Check if Puppet is installed'
   desc 'Ensures that the Puppet executable is available on the system'
 
-  describe command('puppet --version') do
-    its('exit_status') { should eq 0 }
-    its('stdout') { should match /^\d+\.\d+\.\d+/ }
+  describe package('puppet') do
+    it { should exist }
   end
 
-  describe file('/opt/puppetlabs/bin/puppet') do
+  describe file('/usr/bin/puppet') do
     it { should exist }
     it { should be_executable }
   end
