@@ -5,6 +5,7 @@ control 'puppet-installed' do
 
   describe package('puppet') do
     it { should be_installed }
+    its('version') { should cmp > '5.0.0' }
   end
 
   describe file('/usr/bin/puppet') do
