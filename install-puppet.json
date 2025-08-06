@@ -1,0 +1,131 @@
+{
+  "name": "Validate and Install Puppet as needed - node-linux-01 080625.3",
+  "description": "Rolling Jobs",
+  "exceptionRules": [],
+  "scheduleRule": "immediate",
+  "target": {
+    "executionType": "sequential",
+      "groups": [
+        {
+          "batchSize": {
+            "type": "number",
+            "value": 1
+          },
+          "distributionMethod": "rolling",
+          "earlyTermination": false,
+          "filter": null,
+          "filterId": "00000000-0000-0000-0000-000000000000",
+          "listId": "b5de14c9-f266-4ddb-94f8-7e75b998315a",
+          "nodeIdentifiers": null,
+          "nodeListType": "savedList",
+          "successCriteria": [
+            {
+              "numRuns": {
+                "type": "percent",
+                "value": 100
+              },
+              "status": "success"
+            }
+          ],
+          "timeoutSeconds": 240
+        }
+      ]
+    },
+    "actions": {
+      "accessMode": "agent",
+      "steps": [
+        {
+          "command": {
+            "linux": [
+              "which puppet >/dev/null && echo true || echo false"
+            ]
+          },
+          "conditions": [],
+          "description": "",
+          "expectedInputs": {},
+          "failureBehavior": {
+            "action": "retryThenFail",
+            "retryBackoffStrategy": {
+              "arguments": [],
+              "delaySeconds": 0,
+              "type": "linear"
+            }
+          },
+          "inputs": {},
+          "interpreter": {
+            "name": "chef-platform/shell-interpreter",
+            "skill": {
+              "maxVersion": "2",
+              "minVersion": "1"
+            }
+          },
+          "limits": {
+            "cores": 0,
+            "cpu": 1,
+            "timeoutSeconds": 0
+          },
+          "name": "Check Puppet Installation",
+          "outputFieldRules": {
+            "PUPPET_INSTALLED": {
+              "expression": "",
+              "extractMethod": "content",
+              "required": true,
+              "sensitive": false,
+              "source": "stdout",
+              "sourceType": "output"
+            }
+          },
+          "retryCount": 3
+        },
+        {
+          "command": {
+            "linux": [
+              "apt-get update",
+              "apt-get install puppet -y"
+            ]
+          },
+          "conditions": [
+            {
+              "inputName": "PUPPET_INSTALLED",
+              "negate": false,
+              "operator": "eq",
+              "value": "false\n"
+            }
+          ],
+          "description": "",
+          "expectedInputs": {
+            "PUPPET_INSTALLED": {
+              "default": "",
+              "required": true,
+              "sensitive": false,
+              "type": "string"
+            }
+          },
+          "failureBehavior": {
+            "action": "retryThenFail",
+            "retryBackoffStrategy": {
+              "arguments": [],
+              "delaySeconds": 0,
+              "type": "linear"
+            }
+          },
+          "inputs": {},
+          "interpreter": {
+            "name": "chef-platform/shell-interpreter",
+            "skill": {
+              "maxVersion": "2",
+              "minVersion": "1"
+            }
+          },
+          "limits": {
+            "cores": 0,
+            "cpu": 1,
+            "timeoutSeconds": 0
+          },
+          "name": "install puppet",
+          "outputFieldRules": {},
+          "retryCount": 1
+        }
+      ]
+  }
+}
