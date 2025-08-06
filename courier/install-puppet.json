@@ -1,6 +1,6 @@
 {
-  "name": "Validate and Install Puppet as needed - node-linux-01 080625.3",
-  "description": "Rolling Jobs",
+  "name": "VALIDATE AND INSTALL PUPPET as needed - node-linux",
+  "description": "Validate and Install Puppet as needed",
   "exceptionRules": [],
   "scheduleRule": "immediate",
   "target": {
