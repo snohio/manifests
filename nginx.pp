@@ -66,7 +66,7 @@ case $facts['os']['family'] {
                 <h1>🚀 Hello Chef!</h1>
                 <div class="info">
                     <p>This is <span class="highlight">NGINX</span> installed using a Puppet Manifest</p>
-                    <p>Executed by <span class="highlight">Chef Courier</span></p>
+                    <p>Executed by <span class="highlight"<a href="https://www.chef.io/products/job-orchestration">Chef Courier</a></span></p>
                     
                     <div class="tech-stack">
                         <h3>Technology Stack</h3>
