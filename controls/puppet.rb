@@ -4,7 +4,7 @@ control 'puppet-installed' do
   desc 'Ensures that the Puppet executable is available on the system'
 
   describe package('puppet') do
-    it { should exist }
+    it { should be_installed }
   end
 
   describe file('/usr/bin/puppet') do
