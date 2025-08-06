@@ -14,7 +14,7 @@ case $facts['os']['family'] {
 
     file { '/var/www/html/index.nginx-debian.html':
       ensure  => file,
-      content => 'Hello Chef - This is Puppet Installed',
+      content => '<center><h1>Hello Chef</h1><br> - This is NGINX installed using a Puppet Manifest<br>Executed by <b>Chef Courier</br></center>,
       require => Package['nginx'],
     }
   }
