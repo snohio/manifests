@@ -12,7 +12,7 @@ case $facts['os']['family'] {
       enable => true,
     }
 
-    file { '/var/www/html/index.nginx-debian.html':
+    file { '/var/www/html/index.html':
       ensure  => file,
       content => @("EOF"),
         <!DOCTYPE html>
@@ -87,6 +87,7 @@ case $facts['os']['family'] {
         </html>
         | EOF
       require => Package['nginx'],
+      notify  => Service['nginx'],
     }
   }
 
@@ -175,6 +176,7 @@ case $facts['os']['family'] {
         </html>
         | EOF
       require => Package['nginx'],
+      notify  => Service['nginx'],
     }
   }
 
